@@ -35,7 +35,7 @@
             button-text="支付订单"
             @submit="onSubmit()"
             >
-            <van-checkbox v-model="checked" @click='chioceall'>全选</van-checkbox>
+            <van-checkbox v-model="checked" @click='chioceall()'>全选</van-checkbox>
             <span slot="tip">
                 <van-notice-bar
                 text="注意：你的收获地址不支持同城配送，详情咨询官网"
@@ -70,7 +70,8 @@ export default {
                 money:0,
                 itemNum:[],
                 mid:[],
-                timer:[]
+                timer:[],
+                index1:[]
                 
             }
         },
@@ -121,6 +122,7 @@ export default {
                             //返回时间
                             this.getDate()
                             //this.timer.push(this.timer)
+                            
                         }
                        
                     })
@@ -133,17 +135,32 @@ export default {
             },
             chioceall(){
                 this.sum = 0*0
+               
                 if(!this.checked){
-                    for(let val of this.list){
-                     val.danxuan = true;
-                    //  this.sum += val.price * val.bujin*100
-                    this.jine()
-                    }
+                    // for(let val of this.list){
+                    //  val.danxuan = true;
+                    // //  this.sum += val.price * val.bujin*100
+                    // this.jine()
+                    // }
+                    this.list.forEach((item,index)=>{
+                        item.danxuan =true
+                        this.jine()
+                        this.index1.push(index)
+
+                    })
+                    console.log(this.index1)
+
                 }else{
-                    for(let val of this.list){  
-                     val.danxuan = false;
-                     this.sum = 0*0
-                    }
+                    // for(let val of this.list){  
+                    //  val.danxuan = false;
+                    //  this.sum = 0*0
+                    // }
+                    this.list.forEach((item,index)=>{
+                        item.danxuan =false
+                        this.sum = 0*0
+                        this.index1 =[]
+                    })
+                    console.log(this.index1)
                 }
                 
             },
@@ -159,18 +176,33 @@ export default {
             var time = year+'.'+ month+'.'+ day+' '+hour+':'+min+':'+ms
                this.timer.push(time)
             },
-            tao(danxuan,index,a){
+            tao(danxuan,index){
+                  console.log(this.list)
                 let p =parseFloat(this.list[index].mprice)*parseFloat(this.list[index].mnum).toFixed(2)
-                if(!danxuan){
+                let _index = index
+               if(!danxuan){
                    
                     this.sum +=p*100
-
+                    this.index1.push(_index)
+                    //console.log(this.index1)
+                    this.list[_index].danxuan = 'true'//重新创建这个 danxuan在列表中
                 }else{
                     this.sum -=p*100
+                    this.index1.splice(_index,1)
+                    this.list[_index].danxuan = '' //全选的时候，如果取消某个，则删除这个单选按钮
+                    console.log(this.index1)
                     if(this.sum == 0){
                         this.checked = false
                     }
                 }
+                //判断选中与list列表数量是否一样
+                var indLength = this.index1.length
+                var listLength = this.list.length
+                 if(indLength == listLength){
+                      this.checked = true
+                 }else{
+                     this.checked = false
+                 }
                 
             },
             change(){

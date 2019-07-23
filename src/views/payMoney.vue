@@ -40,6 +40,7 @@ export default {
                     params:{balance:this.value,id:14}
                 }).then((data)=>{
                     //console.log(data.data)
+                    //这里是要根据用户id进行判断的
                     this.$dialog.alert({
                         message: '成功充值：'+this.value
                         })

@@ -3,7 +3,7 @@
         <van-nav-bar
             title="待收货"
             left-text="返回"
-        
+            :fixed='true'
             left-arrow
             @click-left="onClickLeft"
           
