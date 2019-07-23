@@ -8,6 +8,8 @@
             @click-left="onClickLeft"
           
             />
+
+        <div class="end">
         <van-card
             v-for='(item,index) in list'
             :tag="tags[index]"
@@ -19,13 +21,14 @@
             :key='item'
             
         >
-       <div slot="footer">
-            <p>{{timer[index]}}</p>
-            
-            <van-button size="small"  :id='index' :val='index' type="info" @click='end($event)' v-if='seen'>确认收货</van-button>
-    
+             <div slot="footer">
+                <p>{{timer[index]}}</p>
+                
+                <van-button size="small"  :id='index' :val='index' type="info" @click='end($event)' v-if='seen'>确认收货</van-button>
+        
+            </div>
+            </van-card>
         </div>
-        </van-card>
         </div>
 </template>
 <script>
@@ -116,6 +119,8 @@ export default {
 
 </script>
 
-<style>
-    
+<style scope="">
+    .end{
+        margin-top:46px 
+    }
 </style>
