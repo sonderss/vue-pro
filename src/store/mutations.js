@@ -20,6 +20,9 @@ var mutations ={
     },
     fileContent(state,fileContent){
         state.fileContent = fileContent
+    },
+    gid(state,gid){
+        state.gid = gid
     }
 }
 export default mutations;

@@ -74,18 +74,14 @@ export default {
                     
                 }
             });
-            console.log(id)
-            console.log(that.mid[id])
+           
             
             this.delMid.push(that.mid[id])
            //this.mid.splice(id,1,'')//删除mid数组里对应的mid
            this.num--
            this.$store.commit('onSubmit',this.num)
            this.$store.commit('delMid',this.delMid)
-           console.log(this.$store.state.delMid)
-
-           console.log()
-           
+          
         },
     },
     mounted() {
@@ -101,8 +97,6 @@ export default {
                     
                     _this.list.push(data.data.info)
                     
-                      console.log(_this.list)
-                       console.log(_this.list[2])
                        for(let j=0;j<this.list.length;j++){
                                 this.tags.push('发货中')
                                 //console.log(this.tags)

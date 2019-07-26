@@ -2,11 +2,6 @@ import Vue from 'vue'
 import { Toast } from 'vant';
 import Router from 'vue-router'
 
-
-
-
-
-
 import payGoods from '@/views/payGoods'
 import addMessage from '@/views/addMessage'
 import Cart from '@/views/Cart'
@@ -18,6 +13,7 @@ import My from '@/views/My'
 import payMoney from '@/views/payMoney'
 import reGoods from '@/views/reGoods'
 import History from '@/views/History'
+import test6 from '@/views/test6'
 
 import Test from '@/views/test'
 Vue.use(Toast)
@@ -25,6 +21,10 @@ Vue.use(Toast)
 Vue.use(Router)
 export default new Router({
 	routes:[
+		{
+			path:'/test6',
+			component:test6
+		},
 		 {
 			 path:'/cart',
 			 component:Cart

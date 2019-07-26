@@ -104,7 +104,7 @@ import axios from 'axios'
              var min = date.getMinutes()
              var ms = date.getSeconds()
             var time = year+'.'+ month+'.'+ day+' '+hour+':'+min+':'+ms
-            console.log(time)
+            //console.log(time)
          }
      
     },
@@ -134,8 +134,17 @@ import axios from 'axios'
            url:'http://106.12.52.107:8081/MeledMall/menu/child',
            params:{id:51}
          }).then((data)=>{
-           console.log(data.data)
+          // console.log(data.data)
          })
+          
+          axios({
+           method:'post',
+           url:'http://106.12.52.107:8081/MeledMall/menu/parentMenu',
+          
+         }).then((data)=>{
+              console.log(data.data.info)
+         })
+         
          
     }
   }

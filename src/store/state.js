@@ -5,7 +5,8 @@ var state={
     mid:[],//最后提交时的商品mid
     timer:[],//购买商品时的时间
     delMid:[],//已收货的商品mid
-    fileContent:'https://img.yzcdn.cn/vant/cat.jpeg'
+    fileContent:'https://img.yzcdn.cn/vant/cat.jpeg',
+    gid:1
 }
 export default state
 

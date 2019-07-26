@@ -24,7 +24,9 @@
             
             
             <div slot="footer" class="checkbox">
+                
             <van-stepper v-model="item.mnum" :disable-input='true' @change='change()' :step='step'/>
+              <van-button size="mini" type='danger' @click='del(item.mid)'>按钮</van-button>
                <van-checkbox   v-model="item.danxuan" class="checkedBox" @click='tao(item.danxuan,index)'></van-checkbox>
             </div>
         </van-card>
@@ -71,7 +73,8 @@ export default {
                 itemNum:[],
                 mid:[],
                 timer:[],
-                index1:[]
+                index1:[],
+                
                 
             }
         },
@@ -84,6 +87,42 @@ export default {
             },
             onClickIcon(){
 
+            },
+            del(mid){
+                console.log(mid)
+                axios({
+                    method:'post',
+                    url:'http://106.12.52.107:8081/MeledMall/shopCar/deleteMenu',
+                    params:{uid:14,mid:mid}
+                }).then((data)=>{
+                    console.log(data.data.code)
+                     const toast =this.$toast.loading({
+                        duration: 0,       // 持续展示 toast
+                        forbidClick: true, // 禁用背景点击
+                        loadingType: 'spinner',
+                        message: '删除中...'
+                        });
+                        let second = 3;
+                        const timer = setInterval(() => {
+                        second--;
+                        if (second) {
+                            toast.message = `删除成功...`;
+                        } else {
+                            clearInterval(timer);
+                            this.$toast.clear();
+                            axios({
+                                    method:'post',
+                                    url:'http://106.12.52.107:8081/MeledMall/shopCar/showShopCar',
+                                    params:{uid:14}
+                                    // data:{token:token}
+                                }).then((data)=>{
+                                    console.log(data.data.info)
+                                    this.list =data.data.info  
+                            })
+                        }
+                    }, 1000);
+                    
+                })
             },
             onSubmit(){
                var _this = this
@@ -181,7 +220,6 @@ export default {
                 let p =parseFloat(this.list[index].mprice)*parseFloat(this.list[index].mnum).toFixed(2)
                 let _index = index
                if(!danxuan){
-                   
                     this.sum +=p*100
                     this.index1.push(_index)
                     //console.log(this.index1)
@@ -223,7 +261,7 @@ export default {
             axios({
                 method:'post',
                 url:'http://106.12.52.107:8081/MeledMall/shopCar/showShopCar',
-                params:{uid:15}
+                params:{uid:14}
                 // data:{token:token}
             }).then((data)=>{
                 console.log(data.data.info)
