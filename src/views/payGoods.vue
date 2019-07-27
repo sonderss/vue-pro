@@ -25,8 +25,8 @@
             
             <div slot="footer" class="checkbox">
                 
-            <van-stepper v-model="item.mnum" :disable-input='true' @change='change()' :step='step'/>
-              <van-button size="mini" type='danger' @click='del(item.mid)'>按钮</van-button>
+            <van-stepper v-model="item.mnum" :disable-input='true' @change='change(item.mnum,item.mid)' :step='step'/>
+              <van-button size="mini" type='danger' @click='del(item.mid,index)'>按钮</van-button>
                <van-checkbox   v-model="item.danxuan" class="checkedBox" @click='tao(item.danxuan,index)'></van-checkbox>
             </div>
         </van-card>
@@ -88,7 +88,7 @@ export default {
             onClickIcon(){
 
             },
-            del(mid){
+            del(mid,index){
                 console.log(mid)
                 axios({
                     method:'post',
@@ -117,6 +117,7 @@ export default {
                                     // data:{token:token}
                                 }).then((data)=>{
                                     console.log(data.data.info)
+                                    this.list[index].danxuan = ''
                                     this.list =data.data.info  
                             })
                         }
@@ -243,9 +244,18 @@ export default {
                  }
                 
             },
-            change(){
+            change(mnum,mid){
                   //let num = bujin+1;
                   this.jine()//每次改变时，都对list进行遍历，调用金额计算函数
+                  //http://106.12.52.107:8081/MeledMall/shopCar/editMnum  
+                    console.log(mnum)
+                 axios({
+                     method:'post',
+                     url:'http://106.12.52.107:8081/MeledMall/shopCar/editMnum',
+                     params:{mnum:mnum,uid:14,mid:mid}
+                 }).then((data)=>{
+                     console.log(data.data)
+                 })
             },
             jine(){
                 this.sum = 0*0 //遍历之前先将金额清零
